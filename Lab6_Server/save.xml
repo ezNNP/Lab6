@@ -1,1 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><world><human><name>aaa</name><age>10</age><tall>10</tall><charism>2</charism><headDiametr>20.0</headDiametr><x>0</x><y>0</y></human><human><name>bbb</name><age>10</age><tall>10</tall><charism>2</charism><headDiametr>20.0</headDiametr><x>0</x><y>0</y></human><human><name>shit</name><age>10</age><tall>10</tall><charism>2</charism><headDiametr>20.0</headDiametr><x>0</x><y>0</y></human></world>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<world>
+    <pen>
+        <name>}</name>
+        <ink>0.0</ink>
+    </pen>
+    <pen>
+        <name>test</name>
+        <ink>1.0</ink>
+        <paper>
+            <size>3.0</size>
+            <height>3.0</height>
+            <wide>3.0</wide>
+        </paper>
+    </pen>
+</world>
