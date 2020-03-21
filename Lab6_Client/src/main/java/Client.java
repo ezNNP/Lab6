@@ -91,16 +91,20 @@ public class Client {
                     addStr += input;
                     if (nestingJSON == 0) {
                         commandEnd = true;
-
                     }
 
                 } else if (command.equals("remove") && commandEnd) {
 
+                    addStr = input.substring(6).trim();
+                    nestingJSON += charCounter(addStr, '{');
+                    if (nestingJSON == 0) {
+                        System.err.println("Неверный синтаксис команды. \nВведите хотя бы один символ { для мультистрокового ввода");
+                        System.out.print("> ");
+                        continue;
+                    }
                     lastCommand = "remove";
                     commandEnd = false;
                     correctCommand = true;
-                    addStr = input.substring(6).trim();
-                    nestingJSON += charCounter(addStr, '{');
                     nestingJSON -= charCounter(addStr, '}');
                     if (nestingJSON == 0) {
                         commandEnd = true;
@@ -108,11 +112,16 @@ public class Client {
 
                 } else if (command.equals("add") && commandEnd) {
 
+                    addStr = input.substring(3).trim();
+                    nestingJSON += charCounter(addStr, '{');
+                    if (nestingJSON == 0) {
+                        System.err.println("Неверный синтаксис команды. \nВведите хотя бы один символ { для мультистрокового ввода");
+                        System.out.print("> ");
+                        continue;
+                    }
                     lastCommand = "add";
                     commandEnd = false;
                     correctCommand = true;
-                    addStr = input.substring(3).trim();
-                    nestingJSON += charCounter(addStr, '{');
                     nestingJSON -= charCounter(addStr, '}');
                     if (nestingJSON == 0) {
                         commandEnd = true;
@@ -138,6 +147,14 @@ public class Client {
                     lastCommand = "help";
                     correctCommand = true;
                     request = createRequest("help", null);
+                } else if (command.equals("remove_first")  && commandEnd) {
+                    lastCommand = "remove_first";
+                    correctCommand = true;
+                    request = createRequest("remove_first", null);
+                } else if (command.equals("remove_last")  && commandEnd) {
+                    lastCommand = "remove_last";
+                    correctCommand = true;
+                    request = createRequest("remove_last", null);
                 } else {
                     correctCommand = false;
                     commandEnd = true;

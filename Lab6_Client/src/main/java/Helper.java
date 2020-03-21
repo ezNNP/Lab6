@@ -76,11 +76,11 @@ public class Helper {
                         Map<String, Object> paperParams = new HashMap<>();
                         Element hatElement = (Element) hatList.item(j);
                         NodeList currentHatList = hatElement.getElementsByTagName("size");
-                        int size = Integer.parseInt(currentHatList.item(0).getFirstChild().getNodeValue());
+                        double size = Double.parseDouble(currentHatList.item(0).getFirstChild().getNodeValue());
                         currentHatList = hatElement.getElementsByTagName("height");
-                        int height = Integer.parseInt(currentHatList.item(0).getFirstChild().getNodeValue());
+                        double height = Double.parseDouble(currentHatList.item(0).getFirstChild().getNodeValue());
                         currentHatList = hatElement.getElementsByTagName("wide");
-                        int wide = Integer.parseInt(currentHatList.item(0).getFirstChild().getNodeValue());
+                        double wide = Double.parseDouble(currentHatList.item(0).getFirstChild().getNodeValue());
 
                         paperParams.put("size", size);
                         paperParams.put("height", height);
@@ -98,7 +98,7 @@ public class Helper {
         } catch (ParserConfigurationException e) {
             System.err.println("Ух ты, вы сломали парсер, написанный отцами-основателями");
         } catch (SAXException | IOException e) {
-            System.err.println("Да хватит уже");
+            System.err.println("Произошлая ошибка при чтении XML");
         } catch (Exception e) {
             System.err.println("Неверный формат XML");
         }
