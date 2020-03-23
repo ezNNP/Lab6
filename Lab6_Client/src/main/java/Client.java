@@ -201,7 +201,6 @@ public class Client {
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
                     System.err.println("Некорректные данные, попробуйте снова");
                 }
                 System.out.print("> ");

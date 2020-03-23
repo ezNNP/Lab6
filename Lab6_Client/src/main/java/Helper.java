@@ -22,7 +22,7 @@ public class Helper {
 
     private Helper() {}
 
-    public static Pen getFromJson(String json) {
+    public static Pen getFromJson(String json) throws Exception {
         Gson gson = new Gson();
         LinkedTreeMap<String, Object> map;
         try {
@@ -37,10 +37,9 @@ public class Helper {
             }
             return PenFactory.newInstance(map);
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Возникла ошибка при создании объекта, проверьте вашу json строку");
+            throw new Exception();
         }
-        return null;
     }
 
     /**
