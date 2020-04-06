@@ -1,3 +1,5 @@
+package messages;
+
 import java.io.Serializable;
 
 public class Command implements Serializable {
@@ -32,7 +34,7 @@ public class Command implements Serializable {
 
     @Override
     public String toString() {
-        return "Command{" +
+        return "messages.Command{" +
                 "command='" + command + '\'' +
                 ", data=" + data +
                 '}';

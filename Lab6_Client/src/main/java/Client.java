@@ -1,5 +1,6 @@
-import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
 import entities.Pen;
+import messages.Command;
+import messages.Response;
 
 import java.io.*;
 import java.net.*;

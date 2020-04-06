@@ -1,13 +1,14 @@
+package modules;
+
 import entities.Paper;
 import entities.Pen;
+import messages.Command;
+import messages.Response;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -28,8 +29,16 @@ public class CommandHandler {
     }
 
 
-    public byte[] handleCommand(Command com, LinkedList<Pen> storage) {
+    public DatagramPacket handleCommand(DatagramPacket in, LinkedList<Pen> storage) {
         synchronized (CommandHandler.class) {
+            Command com;
+            try (ByteArrayInputStream bais = new ByteArrayInputStream(in.getData());
+                 ObjectInputStream ois = new ObjectInputStream(bais);) {
+                com = (Command) ois.readObject();
+            } catch (Exception e) {
+                System.err.println("Ошибка при получении пакета");
+                return null;
+            }
             String command = com.getCommand();
             Object data = com.getData();
 
@@ -69,7 +78,18 @@ public class CommandHandler {
                 default:
                     buffer = "Незиветная команда, попробуйте еще раз".getBytes();
             }
-            return buffer;
+            Response response = new Response(buffer);
+            try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                 ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(response);
+                oos.flush();
+                byte[] output = baos.toByteArray();
+                return new DatagramPacket(output, output.length, in.getAddress(), in.getPort());
+            } catch (Exception e) {
+                System.err.println("Возникла ошибка при сериализации ответа");
+                return null;
+            }
+
         }
     }
 
